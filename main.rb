@@ -19,7 +19,7 @@ class AlbumInfo
   end
 
   def to_s
-    "#{@artist_name}: #{@album_name}"
+    "#{@artist_name}: #{@album_name} (#{@score})"
   end
 end
 
@@ -39,7 +39,13 @@ def parse_index_page url
 
     puts "Processing... #{album}"
 
-    memo << album if album.score >= MINIMUM_SCORE
+    if album.score >= MINIMUM_SCORE
+      puts "  Including"
+      memo << album
+    else
+      puts "  Filtering"
+    end
+
     memo
   end
 end
