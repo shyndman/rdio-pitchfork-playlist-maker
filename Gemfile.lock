@@ -3,7 +3,6 @@ GEM
   specs:
     awesome_print (1.0.2)
     nokogiri (1.5.0)
-    simple-rss (1.2.3)
 
 PLATFORMS
   ruby
@@ -11,4 +10,3 @@ PLATFORMS
 DEPENDENCIES
   awesome_print
   nokogiri
-  simple-rss
