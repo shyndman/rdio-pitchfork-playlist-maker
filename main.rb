@@ -1,63 +1,39 @@
+$LOAD_PATH << File.expand_path(File.dirname(__FILE__))
+
 require "rubygems"
 require "bundler/setup"
 require "open-uri"
 require "nokogiri"
+require "rdio"
 require "ap"
 
-NUM_PAGES = 1
+require "lib/models"
+require "lib/pitchfork_scrape"
+require "lib/filters"
+require "lib/rdio_service"
+
+
+CONFIG_FILE = "config.yml"
+PAGE_RANGE = 1..1
 MINIMUM_SCORE = 5.0
-PITCHFORK_BASE_URL = "http://pitchfork.com"
-PITCHFORK_INDEX_URL_FORMAT = "#{PITCHFORK_BASE_URL}/reviews/albums/%d/"
 
-class AlbumInfo
-  attr :artist_name, :album_name, :score
 
-  def initialize artist_name, album_name, score
-    @artist_name = artist_name
-    @album_name = album_name
-    @score = score
-  end
-
-  def to_s
-    "#{@artist_name}: #{@album_name} (#{@score})"
-  end
+# Loads, parses and returns the config.yml file
+def load_config
+  YAML::load(open(CONFIG_FILE))
 end
 
-def parse_album_page url
-  doc = Nokogiri::HTML(open(url))
-  artist_name = doc.css(".review-meta .info h1").first.text
-  album_name = doc.css(".review-meta .info h2").first.text
-  score = doc.css(".score").text().strip.to_f
+# Scrape the albums from Pitchfork
+albums = get_albums_from_pages PAGE_RANGE
 
-  AlbumInfo.new artist_name, album_name, score
-end
+# Filter them by score
+albums = filter_by_score albums, MINIMUM_SCORE
 
-def parse_index_page url
-  doc = Nokogiri::HTML(open(url))
-  doc.css(".object-grid a").inject([]) do |memo, album_link|
-    album = parse_album_page("#{PITCHFORK_BASE_URL}#{album_link.attr("href")}")
+# Associate them with Rdio information
+decorate_with_rdio_info albums
 
-    puts "Processing... #{album}"
+# Filter them by Rdio availability
+albums = filter_by_rdio_availability albums
 
-    if album.score >= MINIMUM_SCORE
-      puts "  Including"
-      memo << album
-    else
-      puts "  Filtering"
-    end
-
-    memo
-  end
-end
-
-#
-# Do it!
-#
-
-albums = []
-
-(1..NUM_PAGES).each do |pg|
-  albums += parse_index_page(PITCHFORK_INDEX_URL_FORMAT % pg)
-end
-
+# Create the Rdio playlist
 ap albums
