@@ -1,2 +1,4 @@
+# Read more about applying for an Rdio API key here:
+# http://developer.rdio.com/
 rdio_key: xxxxx
 rdio_secret: xxxx
