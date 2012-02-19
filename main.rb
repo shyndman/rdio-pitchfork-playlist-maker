@@ -11,6 +11,7 @@ require "rdio"
 require "launchy"
 require "oauth"
 require "ap"
+require "twitter"
 
 
 PROJECT_ROOT = File.expand_path("#{File.dirname(__FILE__)}")

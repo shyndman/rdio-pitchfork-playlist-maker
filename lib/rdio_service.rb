@@ -3,6 +3,7 @@
 class RdioService
 
   RDIO_ACCESS_TOKEN = "#{PROJECT_ROOT}/.rdio_access_token"
+  TWITTER_ART_USER = "tw1tt3rart"
   DATE_FORMAT = "%b %e, %Y"
 
   @is_initialized = false
@@ -40,11 +41,15 @@ class RdioService
   private
 
   def generate_playlist_name from, to = Time.now
-    "ʕ•̫͡•ʔ Pitchfork Reviews - #{from.strftime(DATE_FORMAT)} to #{to.strftime(DATE_FORMAT)}"
+    "♬ Pitchfork Reviews - #{from.strftime(DATE_FORMAT)} to #{to.strftime(DATE_FORMAT)}"
   end
 
   def generate_playlist_description albums, missing_albums
-    description = ""
+    description = "\n"
+
+    # Add some cool text art to wow the users
+    description << Twitter.user_timeline(TWITTER_ART_USER).first.text
+    description << "\n\n"
 
     albums.each do |album_info|
       description << "#{album_info}\n"
