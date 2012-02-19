@@ -1,3 +1,4 @@
+
 source "http://rubygems.org"
 
 # For printing awesomely
@@ -16,4 +17,7 @@ gem "launchy"
 gem "oauth"
 
 # For running on a schedule
-gem 'whenever', :require => false
+gem "whenever", :require => false
+
+# Used by whenever to trigger playlist creation
+gem "rake"
