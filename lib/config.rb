@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require "date"
 
 CONFIG_FILE_PATH = "#{PROJECT_ROOT}/config/config.yml"

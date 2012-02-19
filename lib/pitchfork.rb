@@ -1,8 +1,10 @@
+# encoding: UTF-8
+
 require "date"
 
 PITCHFORK_BASE_URL = "http://pitchfork.com"
 PITCHFORK_INDEX_URL_FORMAT = "#{PITCHFORK_BASE_URL}/reviews/albums/%d/"
-PAGE_RANGE = 1..1
+PAGE_RANGE = 1..2
 
 # Parses out album information from a Pitchfork album review page
 def parse_album_page url
@@ -22,7 +24,7 @@ def parse_index_page url
   doc.css(".object-grid a").inject([]) do |memo, album_link|
     memo << parse_album_page("#{PITCHFORK_BASE_URL}#{album_link.attr("href")}")
 
-    puts "Scraped... #{memo.last}"
+    puts "  Scraped #{memo.last}"
     sleep 0.2
 
     memo
@@ -30,16 +32,16 @@ def parse_index_page url
 end
 
 def get_albums_since since_time
+  puts "Finding albums on Pitchfork reviewed since #{since_time}"
+
   albums = []
 
   PAGE_RANGE.each do |pg|
     albums += parse_index_page(PITCHFORK_INDEX_URL_FORMAT % pg)
 
-    if !albums.last.nil? and albums.last.pub_date < since_time
-      albums.select! { |album| albums.last.pub_date >= since_time }
-      break
-    end
+    break if !albums.last.nil? and albums.last.pub_date < since_time
   end
 
-  albums
+  # If we scraped too far, do not include the album
+  filter_by_pub_date albums, since_time
 end

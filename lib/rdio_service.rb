@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 class RdioService
 
   RDIO_ACCESS_TOKEN = "#{PROJECT_ROOT}/.rdio_access_token"
@@ -38,11 +40,11 @@ class RdioService
   private
 
   def generate_playlist_name from, to = Time.now
-    "Pitchfork Reviews - #{from.strftime(DATE_FORMAT)} to #{to.strftime(DATE_FORMAT)}"
+    "ʕ•̫͡•ʔ Pitchfork Reviews - #{from.strftime(DATE_FORMAT)} to #{to.strftime(DATE_FORMAT)}"
   end
 
   def generate_playlist_description albums, missing_albums
-    description = "Included albums:\n"
+    description = ""
 
     albums.each do |album_info|
       description << "#{album_info}\n"
@@ -71,9 +73,11 @@ end
 # Searches for each of the provided albums on Rdio, filling out the
 # AlbumInfo.rdio_album attribute if found.
 def decorate_with_rdio_info albums
+  puts "\nSearching Rdio for #{albums.size} albums"
   service = RdioService.new
 
   albums.each do |album_info|
+    puts "  Searching Rdio for #{album_info.artist_name}: #{album_info.album_name}"
     results = service.search_for_album(album_info)
 
     next if results.nil?

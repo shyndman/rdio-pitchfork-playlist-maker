@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 # Creates an Rdio access token based on the provided API key and secret.
 #
 class GenerateAccessToken

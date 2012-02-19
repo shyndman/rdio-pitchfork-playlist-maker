@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 $LOAD_PATH << File.expand_path(File.dirname(__FILE__))
 
 require "rubygems"
@@ -52,4 +54,5 @@ create_rdio_playlist albums, missing_albums, checkpoint
 # Save checkpoint
 save_checkpoint Date.today
 
-# Create the Rdio playlist
+# Save missing albums (to try and pick up later)
+save_missing_albums missing_albums

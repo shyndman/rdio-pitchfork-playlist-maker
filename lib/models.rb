@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 # Contains information related to an album
 class AlbumInfo
   attr_accessor :artist_name, :album_name, :score, :pub_date, :rdio_album
