@@ -21,3 +21,6 @@ gem "whenever", :require => false
 
 # Used by whenever to trigger playlist creation
 gem "rake"
+
+# For building slightly cooler playlist descriptions
+gem "twitter"
