@@ -8,7 +8,10 @@ GIT
 GEM
   remote: http://rubygems.org/
   specs:
+    addressable (2.2.7)
     awesome_print (1.0.2)
+    launchy (2.0.5)
+      addressable (~> 2.2.6)
     nokogiri (1.5.0)
     oauth (0.4.5)
 
@@ -17,5 +20,7 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print
+  launchy
   nokogiri
+  oauth
   rdio!
