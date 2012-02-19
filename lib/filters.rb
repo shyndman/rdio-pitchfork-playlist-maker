@@ -1,6 +1,11 @@
 def filter_by_score albums, score_range
   albums.select do |album_info|
-    score_range.include? album_info.score
+    unless score_range.include? album_info.score
+      puts "Filtering #{album_info} - score out of range"
+      next false
+    end
+
+    true
   end
 end
 
