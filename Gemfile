@@ -14,3 +14,6 @@ gem "launchy"
 
 # For generating the Rdio access token
 gem "oauth"
+
+# For running on a schedule
+gem 'whenever', :require => false
