@@ -47,9 +47,12 @@ class RdioService
   def generate_playlist_description albums, missing_albums
     description = "\n"
 
-    # Add some cool text art to wow the users
+    # Add some cool text art to really "wow!" the users
     description << Twitter.user_timeline(TWITTER_ART_USER).first.text
     description << "\n\n"
+
+    # Add the albums included in this playlist
+    description << "Albums this week:"
 
     albums.each do |album_info|
       description << "#{album_info}\n"
@@ -57,8 +60,9 @@ class RdioService
 
     return description if missing_albums.empty?
 
+    # Add the albums that were not available on Rdio
     description << "\n"
-    description << "Albums not available on Rdio:\n"
+    description << "Albums from time period not yet available on Rdio:\n"
     missing_albums.each do |album_info|
       description << "#{album_info}\n"
     end
