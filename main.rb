@@ -14,7 +14,7 @@ require "ap"
 require "twitter"
 
 
-PROJECT_ROOT = File.expand_path("#{File.dirname(__FILE__)}")
+PROJECT_ROOT = File.expand_path(File.dirname(__FILE__))
 
 require "lib/config"
 require "lib/models"
