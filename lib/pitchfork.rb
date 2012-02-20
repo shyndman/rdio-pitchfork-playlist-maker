@@ -14,7 +14,7 @@ def parse_album_page url
   score = doc.css(".score").text().strip.to_f
   pub_date = Date.parse(doc.css(".pub-date").text())
 
-  AlbumInfo.new artist_name, album_name, score, pub_date
+  AlbumInfo.new artist_name, album_name, score, pub_date, url
 end
 
 # Parses out a page of album review links, calling parse_album_page internally
