@@ -6,7 +6,7 @@ CONFIG_FILE_PATH = "#{PROJECT_ROOT}/config/config.yml"
 MISSING_ALBUMS_FILE_PATH = "#{PROJECT_ROOT}/missing_albums.yml"
 RDIO_ACCESS_TOKEN_PATH = "#{PROJECT_ROOT}/.rdio_access_token"
 RDIO_API_HOME_PAGE = "http://developer.rdio.com/"
-ONE_WEEK_IN_DAYS = 7
+FIRST_RUN_TIME_PERIOD_IN_DAYS = 7
 
 
 # Makes sure all required files exist
@@ -45,7 +45,7 @@ end
 
 # Gets the last time we ran
 def get_last_checkpoint
-  load_config["last_checkpoint"] || (Date.today - ONE_WEEK_IN_DAYS)
+  load_config["last_checkpoint"] || (Date.today - FIRST_RUN_TIME_PERIOD_IN_DAYS)
 end
 
 # Saves the checkpoint to the configuration file
