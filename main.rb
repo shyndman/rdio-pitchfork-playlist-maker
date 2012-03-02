@@ -22,7 +22,7 @@ require "lib/pitchfork"
 require "lib/filters"
 require "lib/rdio_service"
 
-SCORE_RANGE = 5..10
+SCORE_RANGE = 4..10
 
 
 # Make sure we have the files we need to
