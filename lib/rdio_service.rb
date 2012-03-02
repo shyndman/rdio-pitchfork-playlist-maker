@@ -52,7 +52,7 @@ class RdioService
     description << "\n\n"
 
     # Add the albums included in this playlist
-    description << "Albums this week:"
+    description << "Albums this week:\n"
 
     albums.each do |album_info|
       description << "#{album_info}\n"
