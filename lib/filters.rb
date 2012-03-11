@@ -2,7 +2,7 @@
 
 def filter_by_pub_date albums, since
   albums.select do |album_info|
-    album_info.pub_date >= since
+    album_info.pub_date > since
   end
 end
 
