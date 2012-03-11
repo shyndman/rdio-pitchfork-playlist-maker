@@ -16,6 +16,7 @@ require "twitter"
 
 PROJECT_ROOT = File.expand_path(File.dirname(__FILE__))
 
+require "lib/args"
 require "lib/config"
 require "lib/models"
 require "lib/pitchfork"
@@ -24,6 +25,8 @@ require "lib/rdio_service"
 
 SCORE_RANGE = 4..10
 
+# Parse arguments
+args = parse_args
 
 # Make sure we have the files we need to
 perform_startup_check
@@ -49,11 +52,14 @@ decorate_with_rdio_info albums
 # Filter them by Rdio availability
 albums, missing_albums = filter_by_rdio_availability albums
 
-# Create a new playlist
-create_rdio_playlist albums, missing_albums, checkpoint
+unless args[:dry_run]
 
-# Save checkpoint
-save_checkpoint Date.today
+  # Create a new playlist
+  create_rdio_playlist albums, missing_albums, checkpoint
 
-# Save missing albums (to try and pick up later)
-save_missing_albums missing_albums
+  # Save checkpoint
+  save_checkpoint Date.today
+
+  # Save missing albums (to try and pick up later)
+  save_missing_albums missing_albums
+end
