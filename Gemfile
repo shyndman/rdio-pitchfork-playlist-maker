@@ -8,7 +8,7 @@ gem "awesome_print"
 gem "nokogiri"
 
 # For checking track availability and creating playlists
-gem "rdio", "0.0.98a" #, :git => "git@github.com:shyndman/rdiorb.git"
+gem "rdio", "0.0.98a"
 
 # Launchy is required to generate an .rdio_access_token
 gem "launchy"
