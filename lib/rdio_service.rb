@@ -3,7 +3,6 @@
 class RdioService
 
   RDIO_ACCESS_TOKEN = "#{PROJECT_ROOT}/.rdio_access_token"
-  TWITTER_ART_USER = "tw1tt3rart"
   DATE_FORMAT = "%b %e, %Y"
 
   @is_initialized = false
@@ -46,10 +45,6 @@ class RdioService
 
   def generate_playlist_description albums, missing_albums
     description = "\n"
-
-    # Add some cool text art to really "wow!" the users
-    description << Twitter.user_timeline(TWITTER_ART_USER).first.text
-    description << "\n\n"
 
     # Add the albums included in this playlist
     description << "Albums this week:\n"
